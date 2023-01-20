@@ -1,0 +1,20 @@
+<div *ngIf="newPlans != null" class="w-fit border rounded-xl">
+    <table class="table-auto">
+        <thead class="border-b">
+            <tr>
+                <ng-container *ngFor="let p of newPlans[0] | keyvalue">
+                    <th class="p-3">{{p.key}}</th>
+                </ng-container>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let newPlan of newPlans">
+                <tr>
+                    <ng-container *ngFor="let p of newPlan | keyvalue">
+                        <td class="p-3">{{p.value}}</td>
+                    </ng-container>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>

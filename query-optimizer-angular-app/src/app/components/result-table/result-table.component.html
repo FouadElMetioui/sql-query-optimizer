@@ -1,0 +1,20 @@
+<div *ngIf="results != null" class="w-fit border rounded-xl">
+    <table class="table-auto">
+        <thead class="border-b">
+            <tr>
+                <ng-container *ngFor="let r of results[0] | keyvalue">
+                    <th class="p-3">{{r.key}}</th>
+                </ng-container>
+            </tr>
+        </thead>
+        <tbody>
+            <ng-container *ngFor="let result of results">
+                <tr>
+                    <ng-container *ngFor="let r of result | keyvalue">
+                        <td class="p-3">{{r.value}}</td>
+                    </ng-container>
+                </tr>
+            </ng-container>
+        </tbody>
+    </table>
+</div>

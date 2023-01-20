@@ -1,0 +1,72 @@
+<!-- Main modal -->
+<div id="modal" tabindex="-1" aria-hidden="true"
+    class="h-screen w-full hidden justify-center items-center fixed top-0 left-0 z-50 overflow-x-hidden overflow-y-auto bg-black bg-opacity-50">
+    <div class="relative w-full max-w-5xl h-screen ml-auto">
+
+        <!-- Modal content -->
+        <div class="relative bg-white h-fit min-h-screen shadow p-3">
+
+            <!-- Modal header -->
+            <div class="flex items-start justify-between p-4 rounded-t">
+                <h3 class="text-xl font-semibold text-gray-900">Query Optimization Report</h3>
+                <button type="button" (click)="closeModal()"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center">
+                    <fa-icon [icon]="faXmark" class="w-5 h-5" size="lg"></fa-icon>
+                    <span class="sr-only">Close modal</span>
+                </button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="p-6 space-y-6">
+                <!-- Alert -->
+                <ng-container *ngIf="!includeWhere">
+                    <div *ngIf="open"
+                        class="flex justify-between items-center p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg"
+                        role="alert">
+                        <div class="flex ml-3 text-sm font-medium">
+                            <strong class="font-bold">You are Good!</strong> Your query is optimized.
+                        </div>
+                        <button (click)="openAlert(false)"
+                            class="ml-auto -mx-1.5 -my-1.5 bg-green-100 text-green-500 rounded-lg focus:ring-2 focus:ring-green-400 p-1.5 hover:bg-green-200 inline-flex h-8 w-8">
+                            <fa-icon [icon]="faXmark" class="w-5 h-5" size="lg"></fa-icon>
+                        </button>
+                    </div>
+                </ng-container>
+
+                <!-- Your Query -->
+                <div class="mb-5">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Your Query</h3>
+                    <div class="text-sm whitespace-nowrap overflow-x-auto border rounded-xl p-3">
+                        <div [innerHTML]="highlightedQuery"></div>
+                    </div>
+                </div>
+
+                <!-- Query Plan -->
+                <div class="mb-5">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Query Plan</h3>
+                    <app-plan-table class="mb-5 text-sm" [plans]="plans"></app-plan-table>
+                </div>
+
+                <!-- Query Result -->
+                <div class="mb-5">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">Query Result</h3>
+                    <app-result-table class="mb-5 text-sm" [results]="results"></app-result-table>
+                </div>
+
+                <!-- Optimal Indexes -->
+                <div *ngIf="includeWhere" class="mb-5">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">The optimal indexes for this query are ...</h3>
+                    <div class="text-sm whitespace-nowrap overflow-x-auto border rounded-xl p-3">
+                        <div [innerHTML]="highlightedIndex"></div>
+                    </div>
+                </div>
+
+                <!-- New Query Plan -->
+                <div *ngIf="includeWhere" class="mb-5">
+                    <h3 class="text-lg font-semibold text-gray-900 mb-3">The New Query Plan</h3>
+                    <app-new-query-plan-table class="mb-5 text-sm" [newPlans]="newPlans"></app-new-query-plan-table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
